@@ -13,6 +13,15 @@ public class List<T> {
     /**
      * Creates a list of a specified size
      */
+    public List() {
+
+    }
+
+    /**
+     * Create List with set Size
+     *
+     * @param lengthList
+     */
     public List(int lengthList) {
         for (int i = 0; i < lengthList; i++) add(null);
     }
