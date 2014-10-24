@@ -1,8 +1,11 @@
 package main;
 
+import view.LogicTecView;
+
 public class mainApp {
 
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        LogicTecView theView = new LogicTecView();
+
     }
 }

@@ -11,6 +11,14 @@ public class List<T> {
     protected int length = 0;
 
     /**
+     * Creates a list of a specified size
+     */
+    public List(int lengthList) {
+        for (int i = 0; i < lengthList; i++) add(null);
+    }
+
+
+    /**
      * Adds data to the front
      *
      * @param pData
