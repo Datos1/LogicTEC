@@ -63,7 +63,8 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
     public void createComponent(String text) {
         if (freeSpace()) {
             int id = components.getLength();
-            List<Integer> options = new List();
+            int inputs = 0;
+            int outputs = 0;
             if (text.equals(CUSTOM)) { // if file is a Json
                 JFileChooser fileChooser = new JFileChooser();
                 int returnValue = fileChooser.showOpenDialog(null);
@@ -71,38 +72,35 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
                     File selectedFile = fileChooser.getSelectedFile();
                     listener.actionPerformed(new ActionEvent(this, id,
                             text + "#" + selectedFile.getPath()));
-                    options = new List(0, 0);
+
                 }
             } else {
 
-                options = getOptions(text);
+                inputs = askNumber("Entradas", text, MAX_ENTRADAS);
+                outputs = 1;
                 listener.actionPerformed(new ActionEvent(this, id,
-                        text + "#" + options.get(0) + "#" + options.get(1)));
+                        text + "#" + inputs + "#" + outputs));
             }
             String path = getPath(text);
-            components.append(new Componente(id, dropArea, path, options.get(0), options.get(1)));
+            components.append(new Componente(id, dropArea, path, inputs, outputs));
 
             repaint();
         }
     }
 
-    private int askNumber(String type, String text) {
+    private int askNumber(String type, String text, int max) {
         try {
             String txt = JOptionPane.showInputDialog("Inserte numero de " + type + " para " + text + " :");
             int num = Integer.parseInt(txt);
+            if (num > 10 || num < 0)
+                throw new RuntimeException();
             return num;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, ERROR_INT);
-            return askNumber(type, text);
+            return askNumber(type, text, max);
         }
     }
 
-    private List<Integer> getOptions(String text) {
-
-        int inputs = askNumber("Entradas", text);
-        int outputs = askNumber("Salidas", text);
-        return new List<Integer>(inputs, outputs);
-    }
     private String getPath(String text) {
         for (int i = 0; i < COMPONENTS.getLength(); i++) {
             if (COMPONENTS.get(i).equals(text))

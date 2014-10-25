@@ -8,7 +8,7 @@ import data.List;
 public interface Commons {
     public static final String VENTANA_NOMBRE = "Compuertas Lógicas";
     public static final String DELETE = "borrar";
-    public static final String ERROR_INT = "Inserte un Integer mayor a 0:";
+    public static final String ERROR_INT = "Inserte un Integer mayor a 0 y menor a 10:";
     public static final String MENU_NEW = "Nuevo";
     public static final String SAVE = "Guardar";
     public static final String OPEN = "Abrir";
@@ -38,6 +38,8 @@ public interface Commons {
 
     public static final int IMAGE_SIZE = 100;
     public static final int BORDER = 40;
+    public static final int NODO_SIZE = 10;
+    public static final int MAX_ENTRADAS = 40;
 }
 
 
