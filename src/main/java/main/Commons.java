@@ -1,10 +1,13 @@
 package main;
 
+import data.List;
+
 /**
  * Created by pablo on 15/10/14.
  */
 public interface Commons {
     public static final String VENTANA_NOMBRE = "Compuertas Lógicas";
+    public static final String DELETE = "borrar";
     public static final String MENU_NEW = "Nuevo";
     public static final String SAVE = "Guardar";
     public static final String OPEN = "Abrir";
@@ -19,6 +22,7 @@ public interface Commons {
     public static final String XOR = "Compuerta XOR";
     public static final String XNOR = "Compuerta XNOR";
     public static final String CUSTOM = "Componente Externo...";
+    public static final List<String> COMPONENTS = new List<String>(AND, NAND, OR, NOR, NOT, XOR, XNOR, CUSTOM);
     public static final String FREE_SPACE = "Por favor libere el area para nuevos componentes";
     public static final String AND_PATH = "src/res/image-01.png";
     public static final String NAND_PATH = "src/res/image-06.png";
@@ -28,7 +32,10 @@ public interface Commons {
     public static final String XOR_PATH = "src/res/image-04.png";
     public static final String XNOR_PATH = "src/res/image-05.png";
     public static final String CUSTOM_PATH = "src/res/image-08.png";
-    public static final int IMAGESIZE = 100;
+    public static final List<String> COMPONENTS_PATH = new List<String>(AND_PATH, NAND_PATH, OR_PATH, NOR_PATH,
+            NOT_PATH, XOR_PATH, XNOR_PATH, CUSTOM_PATH);
+
+    public static final int IMAGE_SIZE = 100;
     public static final int BORDER = 40;
 }
 

@@ -18,12 +18,12 @@ public class List<T> {
     }
 
     /**
-     * Create List with set Size
+     * Create List with arguments
      *
-     * @param lengthList
+     * @param args
      */
-    public List(int lengthList) {
-        for (int i = 0; i < lengthList; i++) add(null);
+    public List(T... args) {
+        for (T arg : args) append(arg);
     }
 
 

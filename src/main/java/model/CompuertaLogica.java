@@ -12,15 +12,19 @@ public class CompuertaLogica {
 
     /**
      * Asigna la cantidad de entradas y salidas
+     *
      * @param pEntradas
      * @param pSalidas
      */
     public CompuertaLogica(int pEntradas, int pSalidas) {
-        inputs = new List<Salida>(pEntradas);
+        inputs = new List<Salida>();
+        for (int i = 0; i < pEntradas; i++) {
+            inputs.append(null);
+        }
     }
 
     /**
-     * @param i          numero de la entrada de 0 a n-1
+     * @param i       numero de la entrada de 0 a n-1
      * @param pSalida La compuerta de entrada
      * @return devuelve true si el i existe, false al contrario
      */
@@ -31,6 +35,7 @@ public class CompuertaLogica {
     protected boolean getInput(int i) {
         return inputs.get(i).getValue();
     }
+
     /**
      * Obtener salida en pin
      *
