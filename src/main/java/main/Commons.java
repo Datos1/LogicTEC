@@ -8,6 +8,7 @@ import data.List;
 public interface Commons {
     public static final String VENTANA_NOMBRE = "Compuertas Lógicas";
     public static final String DELETE = "borrar";
+    public static final String ERROR_INT = "Inserte un Integer mayor a 0:";
     public static final String MENU_NEW = "Nuevo";
     public static final String SAVE = "Guardar";
     public static final String OPEN = "Abrir";

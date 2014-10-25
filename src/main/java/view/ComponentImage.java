@@ -20,7 +20,7 @@ public class ComponentImage {
      * @param path
      * @param pRef
      */
-    public ComponentImage(String path, int pRef, Rectangle posRect) {
+    public ComponentImage(int pRef, Rectangle posRect, String path, int inputs, int outputs) {
         reference = pRef;
         image = getImage(path);
         rectangle = posRect;

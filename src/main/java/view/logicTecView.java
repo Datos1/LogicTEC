@@ -1,23 +1,23 @@
 package view;
 
+import controller.LogicTecController;
 import main.Commons;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import static java.awt.Toolkit.getDefaultToolkit;
 
 /**
  * Created by pablo on 15/10/14.
  */
-public class LogicTecView extends JFrame implements Commons, MouseListener, ActionListener {
+public class LogicTecView extends JFrame implements Commons, ActionListener {
     JMenuBar menuBar = new JMenuBar();
     WorkSpacePanel panel;
     int ANCHO = (int) getDefaultToolkit().getScreenSize().getWidth() * 2 / 3;
     int ALTO = (int) getDefaultToolkit().getScreenSize().getHeight() * 2 / 3;
+    private LogicTecController controller;
 
     public LogicTecView() {
         super();
@@ -28,7 +28,7 @@ public class LogicTecView extends JFrame implements Commons, MouseListener, Acti
     }
 
     private void init() {
-        panel = new WorkSpacePanel(ANCHO, ALTO);
+        panel = new WorkSpacePanel(ANCHO, ALTO, controller);
         this.add(panel);
         JMenu menuFile = new JMenu(MENU_FILE);
         menuBar.add(menuFile);
@@ -39,15 +39,9 @@ public class LogicTecView extends JFrame implements Commons, MouseListener, Acti
         JMenu menuNew = new JMenu(MENU_NEW);
         menuBar.add(menuNew);
         setJMenuBar(menuBar);
-        menuNew.add(createMenuItem(AND));
-        menuNew.add(createMenuItem(NAND));
-        menuNew.add(createMenuItem(NOR));
-        menuNew.add(createMenuItem(OR));
-        menuNew.add(createMenuItem(XOR));
-        menuNew.add(createMenuItem(XNOR));
-        menuNew.add(createMenuItem(NOT));
-        menuNew.add(createMenuItem(CUSTOM));
-        addMouseListener(this);
+        for (int i = 0; i < COMPONENTS.getLength(); i++) { //creates add menu with components
+            menuNew.add(createMenuItem(COMPONENTS.get(i)));
+        }
 
         this.setVisible(true);
     }
@@ -66,56 +60,6 @@ public class LogicTecView extends JFrame implements Commons, MouseListener, Acti
 
 
     /**
-     * Invoked when the mouse button has been clicked (pressed
-     * and released) on a component.
-     *
-     * @param e
-     */
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    /**
-     * Invoked when a mouse button has been pressed on a component.
-     *
-     * @param e
-     */
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    /**
-     * Invoked when a mouse button has been released on a component.
-     *
-     * @param e
-     */
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    /**
-     * Invoked when the mouse enters a component.
-     *
-     * @param e
-     */
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    /**
-     * Invoked when the mouse exits a component.
-     *
-     * @param e
-     */
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
-    /**
      * Invoked when an action occurs.
      *
      * @param e
@@ -123,9 +67,18 @@ public class LogicTecView extends JFrame implements Commons, MouseListener, Acti
     @Override
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
-        if (cmd.equals(AND)) panel.addAnd();
-        else if (cmd.equals(OR)) panel.addOr();
-        else if (cmd.equals(XOR)) panel.addXor();
+        for (int i = 0; i < COMPONENTS.getLength(); i++) {
+            if (e.getActionCommand().equals(COMPONENTS.get(i)))
+                panel.createComponent(COMPONENTS.get(i));
+        }
     }
 
+    /**
+     * sets panel listener
+     *
+     * @param listener
+     */
+    public void addListener(ActionListener listener) {
+        panel.addListener(listener);
+    }
 }
