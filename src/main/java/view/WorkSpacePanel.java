@@ -13,11 +13,14 @@ import java.io.File;
  * Created by pablo on 24/10/14.
  */
 public class WorkSpacePanel extends JPanel implements Commons, MouseListener, MouseMotionListener {
-    private List<ComponentImage> components = new List<ComponentImage>();
+    private List<Componente> components = new List<Componente>();
     private Dimension size;
     private Rectangle dropArea;
     private LogicTecController controller;
     private ActionListener listener;
+    private boolean dragging = false;
+    private Componente draggedImage;
+    private Point startPoint;
 
 
     public WorkSpacePanel(int w, int h, LogicTecController controller) {
@@ -35,9 +38,17 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
         g.drawRect((int) dropArea.getX(), (int) dropArea.getY(),
                 (int) dropArea.getWidth(), (int) dropArea.getHeight());// draw drop area
         for (int i = 0; i < components.getLength(); i++) {
-            ComponentImage component = components.get(i);
-            g.drawImage(component.getImage(), (int) component.getRect().getX(), (int) component.getRect().getY(), null);
+            Componente component = components.get(i);
+            g.drawImage(component.getImage(), component.x, component.y, null);
             // draws the image in the current position
+            for (int j = 0; j < component.getInputs(); j++) {
+                //int size =
+                //g.setColor(Color.white);
+                //g.fillRect(component.get,100,10,10);
+            }
+            for (int j = 0; j < component.getOutputs(); j++) {
+
+            }
         }
 
     }
@@ -51,7 +62,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
      */
     public void createComponent(String text) {
         if (freeSpace()) {
-            int id = components.getLength() + 1;
+            int id = components.getLength();
             List<Integer> options = new List();
             if (text.equals(CUSTOM)) { // if file is a Json
                 JFileChooser fileChooser = new JFileChooser();
@@ -69,7 +80,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
                         text + "#" + options.get(0) + "#" + options.get(1)));
             }
             String path = getPath(text);
-            components.append(new ComponentImage(id, dropArea, path, options.get(0), options.get(1)));
+            components.append(new Componente(id, dropArea, path, options.get(0), options.get(1)));
 
             repaint();
         }
@@ -104,7 +115,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
     private boolean freeSpace() {
         for (int i = 0; i < components.getLength(); i++) {
 
-            if (dropArea.intersects(components.get(i).getRect())) {
+            if (dropArea.intersects(components.get(i))) {
                 JOptionPane.showMessageDialog(this, FREE_SPACE);
                 return false;
 
@@ -119,89 +130,76 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
     }
 
 
-
-    /**
-     * Invoked when the mouse button has been clicked (pressed
-     * and released) on a component.
-     *
-     * @param e
-     */
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        System.out.println("clicked");
-    }
-
     /**
      * Invoked when a mouse button has been pressed on a component.
      *
-     * @param e
+     * @param click
      */
     @Override
-    public void mousePressed(MouseEvent e) {
-        System.out.println("pressed");
+    public void mousePressed(MouseEvent click) {
         for (int i = 0; i < components.getLength(); i++) {
-            if (components.get(i).getRect().intersects(new Rectangle(e.getX(), getY(), 1, 1)))//Rectangle size 1
-                System.out.println(12);
+
+            if (components.get(i).contains(click.getPoint())) {
+                dragging = true;
+                startPoint = click.getPoint();
+                draggedImage = components.get(i);
+                break;
+            }
         }
     }
 
-    /**
-     * Invoked when a mouse button has been released on a component.
-     *
-     * @param e
-     */
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        System.out.println("released");
-    }
-
-    /**
-     * Invoked when the mouse enters a component.
-     *
-     * @param e
-     */
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        System.out.println("entered");
-    }
-
-    /**
-     * Invoked when the mouse exits a component.
-     *
-     * @param e
-     */
-    @Override
-    public void mouseExited(MouseEvent e) {
-        System.out.println("exited");
-    }
 
     /**
      * Invoked when a mouse button is pressed on a component and then
-     * dragged.  <code>MOUSE_DRAGGED</code> events will continue to be
-     * delivered to the component where the drag originated until the
-     * mouse button is released (regardless of whether the mouse position
-     * is within the bounds of the component).
-     * <p/>
-     * Due to platform-dependent Drag&amp;Drop implementations,
-     * <code>MOUSE_DRAGGED</code> events may not be delivered during a native
-     * Drag&amp;Drop operation.
+     * dragged. Moves image if necessary.
      *
      * @param e
      */
     @Override
     public void mouseDragged(MouseEvent e) {
-        System.out.println("Dragged");
+        if (draggedImage != null) {
+            draggedImage.move(startPoint, e.getPoint());
+            startPoint = e.getPoint();
+        }
+        repaint();
     }
-
     /**
-     * Invoked when the mouse cursor has been moved onto a component
-     * but no buttons have been pushed.
-     *
+     * Set environment to default
+     * @param e
+     */
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        dragging = false;
+        draggedImage = null;
+    }
+    /**
+     * Do Nothing!
+     * @param e
+     */
+    @Override
+    public void mouseClicked(MouseEvent e) {
+    }
+    /**
+     * Do Nothing!
      * @param e
      */
     @Override
     public void mouseMoved(MouseEvent e) {
-        System.out.println("Moved");
+    }
+
+    /**
+     * Do Nothing!
+     * @param e
+     */
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+    /**
+     * Do Nothing!
+     * @param e
+     */
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 }
 
