@@ -14,9 +14,11 @@ import java.io.File;
 public class WorkSpacePanel extends JPanel implements Commons, MouseListener, MouseMotionListener {
     private List<Componente> components = new List<Componente>();
     private Dimension size;
+    private int id;
     private Rectangle dropArea;
     private ActionListener listener;
     private boolean dragging = false;
+    private boolean theme = false;
     private boolean inside = false;
     private Componente draggedComponente;
     private Nodo draggedNodo;
@@ -58,7 +60,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
 
         {
             Componente component = components.get(i);
-            g2d.drawImage(component.getImage(), component.x, component.y, null);
+            g2d.drawImage(component.getImage(theme), component.x, component.y, null);
             // draws the image in the current position
             List<Nodo> inpts = component.getRectEntradas();
             for (int j = 0; j < inpts.getLength(); j++) {
@@ -129,7 +131,9 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
         }
     }
     private void deleteComponent(int id) {
+        components.remove(id);
         listener.actionPerformed(new ActionEvent(this, id, DELETE));
+        repaint();
     }
     /**
      * Notifies logic to create something
@@ -137,7 +141,6 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
      */
     public void createComponent(String text) {
         if (freeSpace()) {
-            int id = components.getLength();
             int inputs = 0;
             int outputs = 0;
             if (text.equals(CUSTOM)) { // if file is a Json
@@ -150,18 +153,29 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
 
                 }
             } else {
-
-                inputs = askNumber("Entradas", text, MAX_ENTRADAS);
-                outputs = 1;
-                listener.actionPerformed(new ActionEvent(this, id,
-                        text + "#" + inputs + "#" + outputs));
+                if (text.equals(IN)) {
+                    inputs = 0;
+                    outputs = 1;
+                } else if (text.equals(OUT)) {
+                    inputs = 1;
+                    outputs = 0;
+                } else if (text.equals(NOT)) {
+                    inputs = 1;
+                    outputs = 1;
+                } else {
+                    inputs = askNumber("Entradas", text, MAX_ENTRADAS);
+                    outputs = 1;
+                }
             }
-            String path = getPath(text);
-            components.append(new Componente(id, dropArea, path, inputs, outputs));
-
+            listener.actionPerformed(new ActionEvent(this, id,
+                    text + "#" + inputs + "#" + outputs));
+            String path = getPath(text, 0);
+            String path2 = getPath(text, 1);
+            components.append(new Componente(id++, dropArea, path, path2, inputs, outputs));
             repaint();
         }
     }
+
 
     private int askNumber(String type, String text, int max) {
         try {
@@ -176,10 +190,18 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
         }
     }
 
-    private String getPath(String text) {
+    private String getPath(String text, int id) {
+        if (text.equals(IN) || text.equals(OUT))
+            if (id == 0)
+                return LOW_PATH;
+            else
+                return HIGH_PATH;
         for (int i = 0; i < COMPONENTS.getLength(); i++) {
             if (COMPONENTS.get(i).equals(text))
-                return COMPONENTS_PATH.get(i);
+                if (id == 0)
+                    return COMPONENTS_PATH.get(i);
+                else
+                    return COMPONENTS2_PATH.get(i);
         }
         return "";
     }
@@ -266,8 +288,9 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
                 List<Nodo> inpts = component.getRectEntradas();
                 for (int j = 0; j < component.getInputs(); j++) {
                     Nodo entrada = inpts.get(j);
-                    if (entrada.contains(click.getPoint()))
+                    if (entrada.contains(click.getPoint())) {
                         addLink(entrada, draggedNodo);
+                    }
                 }
 
             }
@@ -294,11 +317,29 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
     }
 
     /**
-     * Do Nothing!
-     * @param e
+     * Whuen user clicks
+     * @param click
      */
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent click) {
+        for (int j = 0; j < components.getLength(); j++) {
+            Componente component = components.get(j);
+
+            if (component.contains(click.getPoint())) {
+                if (SwingUtilities.isLeftMouseButton(click)) {
+                    if (component.isIn())
+                        component.changeDigitalValue();
+                    listener.actionPerformed(new ActionEvent(this, component.getReference(), "change"));
+                }
+                if (SwingUtilities.isRightMouseButton(click)) {
+                    deleteComponent(j);
+
+                }
+
+
+            }
+
+        }
     }
     /**
      * Do Nothing!

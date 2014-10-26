@@ -15,6 +15,7 @@ import java.io.IOException;
  */
 public class Componente extends Rectangle implements Commons {
     private Image image;
+    private Image sImage;
     private int reference;
     private int inputs;
     private int outputs;
@@ -29,9 +30,10 @@ public class Componente extends Rectangle implements Commons {
      * @param path
      * @param pRef
      */
-    public Componente(int pRef, Rectangle posRect, String path, int pInputs, int pOutputs) {
+    public Componente(int pRef, Rectangle posRect, String path, String path2, int pInputs, int pOutputs) {
         reference = pRef;
         image = getImage(path);
+        sImage = getImage(path2);
         this.setRect(posRect);
         inputs = pInputs;
         outputs = pOutputs;
@@ -40,6 +42,7 @@ public class Componente extends Rectangle implements Commons {
         }
         createRectNodos();
     }
+
     /**
      * Creates a label
      *
@@ -68,7 +71,8 @@ public class Componente extends Rectangle implements Commons {
 
     /**
      * hace el set de la entrada
-     * @param id numero de entrada
+     *
+     * @param id     numero de entrada
      * @param salida apuntando
      */
     public void setEntrada(int id, Salida salida) {
@@ -100,6 +104,16 @@ public class Componente extends Rectangle implements Commons {
     /**
      * @return label for image representation
      */
+    public Image getImage(boolean theme) {
+        if (!(isIn() || isOut()))
+            if (theme)
+                return sImage;
+        return image;
+    }
+
+    /**
+     * @return label for image representation
+     */
     public Image getImage() {
         return image;
     }
@@ -107,6 +121,7 @@ public class Componente extends Rectangle implements Commons {
     /**
      * Moves rectangle a distance
      * and moves its nodes
+     *
      * @param point
      */
     public void move(Point point) {
@@ -156,6 +171,7 @@ public class Componente extends Rectangle implements Commons {
     /**
      * Ayuda a revisar collision en los puntos clave
      * obtiene una lista de entradas o salidas
+     *
      * @return posicion o -1 como error
      */
     private int pointInAux(Point point, List<Nodo> list) {
@@ -194,6 +210,22 @@ public class Componente extends Rectangle implements Commons {
     public List<Nodo> getRectSalidas() {
         return rectSalidas;
     }
-}
 
+    public boolean isIn() {
+        return inputs == 0;
+    }
+
+    public boolean isOut() {
+        return outputs == 0;
+    }
+
+
+    public void changeDigitalValue() {
+        if (isIn() || isOut()) {
+            Image tmp = image;
+            image = sImage;
+            sImage = tmp;
+        }
+    }
+}
 
