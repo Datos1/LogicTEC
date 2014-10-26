@@ -1,6 +1,5 @@
 package view;
 
-import controller.LogicTecController;
 import data.List;
 import main.Commons;
 
@@ -16,14 +15,16 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
     private List<Componente> components = new List<Componente>();
     private Dimension size;
     private Rectangle dropArea;
-    private LogicTecController controller;
     private ActionListener listener;
     private boolean dragging = false;
-    private Componente draggedImage;
+    private boolean inside = false;
+    private Componente draggedComponente;
+    private Nodo draggedNodo;
     private Point startPoint;
+    private Point lastPoint;
 
 
-    public WorkSpacePanel(int w, int h, LogicTecController controller) {
+    public WorkSpacePanel(int w, int h) {
         super();
         this.size = new Dimension(w, h);
         this.setSize(size);
@@ -40,25 +41,70 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
         g2d.setColor(getBackground());
         g2d.fillRect(0, 0, getWidth(), getHeight());
         g2d.setColor(Color.black);
-        g2d.setStroke(new BasicStroke(5.0f));
-        g2d.drawRoundRect((int) dropArea.getX(), (int) dropArea.getY(),
-                (int) dropArea.getWidth(), (int) dropArea.getHeight(), 5, 5);// draw drop area
-        for (int i = 0; i < components.getLength(); i++) {
-            Componente component = components.get(i);
-            g2d.drawImage(component.getImage(), component.x, component.y, null);
-            // draws the image in the current position
-            for (int j = 0; j < component.getInputs(); j++) {
-                //int size =
-                //g.setColor(Color.white);
-                //g.fillRect(component.get,100,10,10);
-            }
-            for (int j = 0; j < component.getOutputs(); j++) {
-
-            }
-        }
+        g2d.drawLine(0, 0, 100, 100);
+        paintDraggedLine(g2d);
+        paintDropArea(g2d);
+        paintComponentsAndMore(g2d);
         g2d.dispose();
     }
 
+    /**
+     * Paints Components and Nodes
+     *
+     * @param g2d graphics
+     */
+    private void paintComponentsAndMore(Graphics2D g2d) {
+        for (
+                int i = 0;
+                i < components.getLength(); i++)
+
+        {
+            Componente component = components.get(i);
+            g2d.drawImage(component.getImage(), component.x, component.y, null);
+            // draws the image in the current position
+            List<Nodo> inpts = component.getRectEntradas();
+            for (int j = 0; j < inpts.getLength(); j++) {
+                g2d.setColor(Color.white);
+                Rectangle rect = inpts.get(j);
+                g2d.fillRect(rect.x, rect.y, rect.width, rect.height);
+            }
+            List<Nodo> outpts = component.getRectSalidas();
+            for (int j = 0; j < outpts.getLength(); j++) {
+                g2d.setColor(Color.white);
+                Rectangle rect = outpts.get(j);
+                g2d.fillRect(rect.x, rect.y, rect.width, rect.height);
+            }
+        }
+    }
+
+
+    /**
+     * Paints Drop Area
+     *
+     * @param g2d graphics
+     */
+    private void paintDropArea(Graphics2D g2d) {
+        float dash[] = {10.0f};
+        g2d.setStroke(new BasicStroke(2.5f,
+                BasicStroke.CAP_BUTT,
+                BasicStroke.JOIN_MITER,
+                10.0f, dash, 0.0f));
+        g2d.drawRoundRect((int) dropArea.getX(), (int) dropArea.getY(),
+                (int) dropArea.getWidth(), (int) dropArea.getHeight(), 5, 5);// draw drop area
+    }
+
+    /**
+     * Paints temporal line
+     *
+     * @param g2d graphics
+     */
+    private void paintDraggedLine(Graphics2D g2d) {
+        if (draggedNodo != null) {
+            g2d.setColor(Color.black);
+            g2d.setStroke(new BasicStroke(3, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+            g2d.drawLine(startPoint.x, startPoint.y, lastPoint.x, lastPoint.y);
+        }
+    }
     private void deleteComponent(int id) {
         listener.actionPerformed(new ActionEvent(this, id, DELETE));
     }
@@ -142,12 +188,22 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
     @Override
     public void mousePressed(MouseEvent click) {
         for (int i = 0; i < components.getLength(); i++) {
+            Componente component = components.get(i);
+            for (int j = 0; j < component.getOutputs(); j++) {
+                if (component.getRectSalidas().get(j).contains(click.getPoint())) {
+                    dragging = true;
+                    startPoint = click.getPoint();
+                    lastPoint = click.getPoint();
+                    draggedNodo = component.getRectSalidas().get(j);
+                    return;
+                }
+            }
 
-            if (components.get(i).contains(click.getPoint())) {
+            if (component.contains(click.getPoint())) {
                 dragging = true;
-                startPoint = click.getPoint();
-                draggedImage = components.get(i);
-                break;
+                lastPoint = click.getPoint();
+                draggedComponente = components.get(i);
+                return;
             }
         }
     }
@@ -161,10 +217,16 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
      */
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (draggedImage != null) {
-            draggedImage.move(startPoint, e.getPoint());
-            startPoint = e.getPoint();
-        }
+        if (inside)
+            if (draggedComponente != null) {
+                draggedComponente.move(lastPoint, e.getPoint());
+                lastPoint = e.getPoint();
+            } else if (draggedNodo != null) {
+                if (startPoint == null) {
+                    startPoint = e.getPoint();
+                }
+                lastPoint = e.getPoint();
+            }
         repaint();
     }
     /**
@@ -174,7 +236,11 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
     @Override
     public void mouseReleased(MouseEvent e) {
         dragging = false;
-        draggedImage = null;
+        draggedComponente = null;
+        draggedNodo = null;
+        startPoint = null;
+        lastPoint = null;
+        repaint();
     }
     /**
      * Do Nothing!
@@ -197,6 +263,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
      */
     @Override
     public void mouseEntered(MouseEvent e) {
+        inside = true;
     }
     /**
      * Do Nothing!
@@ -204,6 +271,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
      */
     @Override
     public void mouseExited(MouseEvent e) {
+        inside = false;
     }
 }
 

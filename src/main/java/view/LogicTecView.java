@@ -1,6 +1,5 @@
 package view;
 
-import controller.LogicTecController;
 import main.Commons;
 
 import javax.swing.*;
@@ -17,7 +16,6 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
     WorkSpacePanel panel;
     int ANCHO = (int) getDefaultToolkit().getScreenSize().getWidth() * 2 / 3;
     int ALTO = (int) getDefaultToolkit().getScreenSize().getHeight() * 2 / 3;
-    private LogicTecController controller;
 
     public LogicTecView() {
         super();
@@ -28,7 +26,7 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
     }
 
     private void init() {
-        panel = new WorkSpacePanel(ANCHO, ALTO, controller);
+        panel = new WorkSpacePanel(ANCHO, ALTO);
         this.add(panel);
         JMenu menuFile = new JMenu(MENU_FILE);
         menuBar.add(menuFile);

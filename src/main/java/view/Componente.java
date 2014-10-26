@@ -19,6 +19,8 @@ public class Componente extends Rectangle implements Commons {
     private int inputs;
     private int outputs;
     private List<Salida> entradas = new List<Salida>();
+    private List<Nodo> rectEntradas = new List<Nodo>();
+    private List<Nodo> rectSalidas = new List<Nodo>();
 
 
     /**
@@ -36,6 +38,7 @@ public class Componente extends Rectangle implements Commons {
         for (int i = 0; i < inputs; i++) {
             entradas.append(null);
         }
+        createRectNodos();
     }
     /**
      * Creates a label
@@ -103,11 +106,22 @@ public class Componente extends Rectangle implements Commons {
 
     /**
      * Moves rectangle a distance
-     *
+     * and moves its nodes
      * @param point
      */
     public void move(Point point) {
-        this.setLocation(this.x + point.x, this.y + point.y);
+
+        this.x = this.x + point.x;
+        this.y = this.y + point.y;
+
+        for (int i = 0; i < rectEntradas.getLength(); i++) {
+            Nodo rect = rectEntradas.get(i);
+            rect.setLocation(rect.x + point.x, rect.y + point.y);
+        }
+        for (int i = 0; i < rectSalidas.getLength(); i++) {
+            Nodo rect = rectSalidas.get(i);
+            rect.setLocation(rect.x + point.x, rect.y + point.y);
+        }
     }
 
     /**
@@ -127,7 +141,7 @@ public class Componente extends Rectangle implements Commons {
      * @return devuelve la posicion o -1 como error
      */
     public int pointInInputs(Point point) {
-        return pointInAux(point, inputs, this.x);
+        return pointInAux(point, rectEntradas);
     }
 
     /**
@@ -136,26 +150,45 @@ public class Componente extends Rectangle implements Commons {
      * @return devuelve la posicion o -1 como error
      */
     public int pointInOutputs(Point point) {
-        return pointInAux(point, outputs, this.x + IMAGE_SIZE);
+        return pointInAux(point, rectSalidas);
     }
 
     /**
      * Ayuda a revisar collision en los puntos clave
-     *
-     * @param num
+     * obtiene una lista de entradas o salidas
      * @return posicion o -1 como error
      */
-    private int pointInAux(Point point, int num, int posX) {
+    private int pointInAux(Point point, List<Nodo> list) {
+        for (int i = 0; i < list.getLength(); i++) {
+            Nodo rect = list.get(i);
+            if (rect.contains(point))
+                return i;
+        }
+        return -1;
+    }
+
+    private void createRectNodos() {
+        createRectNodosAux(inputs, this.x, rectEntradas);
+        createRectNodosAux(outputs, this.x + IMAGE_SIZE, rectSalidas);
+    }
+
+    private void createRectNodosAux(int num, int posX, List<Nodo> list) {
         final int HALF_SIZE = NODO_SIZE / 2;
         double largoDiv = IMAGE_SIZE / (num + 1);
         double posXInicial = posX - HALF_SIZE;
         double posYInicial = largoDiv - HALF_SIZE;
         for (int i = 0; i < num; i++) {
-            Rectangle rect = new Rectangle((int) (this.x + posXInicial), (int) (this.y + posYInicial + (i * largoDiv)), NODO_SIZE, NODO_SIZE);
-            if (rect.contains(point))
-                return i;
+            Nodo rect = new Nodo(new Rectangle((int) (this.x + posXInicial), (int) (this.y + posYInicial + (i * largoDiv)), NODO_SIZE, NODO_SIZE), this);
+            list.append(rect);
         }
-        return -1;
+    }
+
+    public List<Nodo> getRectEntradas() {
+        return rectEntradas;
+    }
+
+    public List<Nodo> getRectSalidas() {
+        return rectSalidas;
     }
 }
 
