@@ -31,15 +31,21 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
         dropArea = new Rectangle(0, size.height - IMAGE_SIZE, IMAGE_SIZE, IMAGE_SIZE);
         addMouseListener(this);
         addMouseMotionListener(this);
+        repaint();
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        g.drawRect((int) dropArea.getX(), (int) dropArea.getY(),
-                (int) dropArea.getWidth(), (int) dropArea.getHeight());// draw drop area
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(getBackground());
+        g2d.fillRect(0, 0, getWidth(), getHeight());
+        g2d.setColor(Color.black);
+        g2d.setStroke(new BasicStroke(5.0f));
+        g2d.drawRoundRect((int) dropArea.getX(), (int) dropArea.getY(),
+                (int) dropArea.getWidth(), (int) dropArea.getHeight(), 5, 5);// draw drop area
         for (int i = 0; i < components.getLength(); i++) {
             Componente component = components.get(i);
-            g.drawImage(component.getImage(), component.x, component.y, null);
+            g2d.drawImage(component.getImage(), component.x, component.y, null);
             // draws the image in the current position
             for (int j = 0; j < component.getInputs(); j++) {
                 //int size =
@@ -50,7 +56,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
 
             }
         }
-
+        g2d.dispose();
     }
 
     private void deleteComponent(int id) {
