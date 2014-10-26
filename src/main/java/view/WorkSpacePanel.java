@@ -40,8 +40,6 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(getBackground());
         g2d.fillRect(0, 0, getWidth(), getHeight());
-        g2d.setColor(Color.black);
-        g2d.drawLine(0, 0, 100, 100);
         paintDraggedLine(g2d);
         paintDropArea(g2d);
         paintComponentsAndMore(g2d);
@@ -65,14 +63,16 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
             List<Nodo> inpts = component.getRectEntradas();
             for (int j = 0; j < inpts.getLength(); j++) {
                 g2d.setColor(Color.white);
-                Rectangle rect = inpts.get(j);
-                g2d.fillRect(rect.x, rect.y, rect.width, rect.height);
+                Nodo entrada = inpts.get(j);
+                g2d.fillRect(entrada.x, entrada.y, entrada.width, entrada.height);
+                if (entrada.hasInLink())
+                    drawLine(g2d, entrada.x, entrada.y, entrada.getInLink().x, entrada.getInLink().y);
             }
             List<Nodo> outpts = component.getRectSalidas();
             for (int j = 0; j < outpts.getLength(); j++) {
                 g2d.setColor(Color.white);
-                Rectangle rect = outpts.get(j);
-                g2d.fillRect(rect.x, rect.y, rect.width, rect.height);
+                Nodo salida = outpts.get(j);
+                g2d.fillRect(salida.x, salida.y, salida.width, salida.height);
             }
         }
     }
@@ -84,6 +84,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
      * @param g2d graphics
      */
     private void paintDropArea(Graphics2D g2d) {
+        g2d.setColor(Color.black);
         float dash[] = {10.0f};
         g2d.setStroke(new BasicStroke(2.5f,
                 BasicStroke.CAP_BUTT,
@@ -94,15 +95,37 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
     }
 
     /**
+     * Draws a nice line
+     */
+    private void drawLine(Graphics2D g2d, int x1, int y1, int x2, int y2) {
+        if (x1 > x2)//swap elements
+        {
+            int xTemp = x1;
+            int yTemp = y1;
+            x1 = x2;
+            y1 = y2;
+            x2 = xTemp;
+            y2 = yTemp;
+
+        }
+        int distance = x2 - x1;
+        int inter = distance * 1 / 2;
+        g2d.setColor(Color.black);
+        g2d.setStroke(new BasicStroke(3, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        g2d.drawLine(x1, y1, x1 + inter, y1);
+        g2d.drawLine(x1 + inter, y1, x1 + inter, y2);
+        g2d.drawLine(x1 + inter, y2, x2, y2);
+    }
+
+    /**
      * Paints temporal line
      *
      * @param g2d graphics
      */
     private void paintDraggedLine(Graphics2D g2d) {
         if (draggedNodo != null) {
-            g2d.setColor(Color.black);
-            g2d.setStroke(new BasicStroke(3, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-            g2d.drawLine(startPoint.x, startPoint.y, lastPoint.x, lastPoint.y);
+
+            drawLine(g2d, startPoint.x, startPoint.y, lastPoint.x, lastPoint.y);
         }
     }
     private void deleteComponent(int id) {
@@ -231,17 +254,45 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
     }
     /**
      * Set environment to default
-     * @param e
+     * @param click
      */
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent click) {
         dragging = false;
         draggedComponente = null;
-        draggedNodo = null;
+        if (draggedNodo != null) {
+            for (int i = 0; i < components.getLength(); i++) {
+                Componente component = components.get(i);
+                List<Nodo> inpts = component.getRectEntradas();
+                for (int j = 0; j < component.getInputs(); j++) {
+                    Nodo entrada = inpts.get(j);
+                    if (entrada.contains(click.getPoint()))
+                        addLink(entrada, draggedNodo);
+                }
+
+            }
+            draggedNodo = null;
+        }
         startPoint = null;
         lastPoint = null;
         repaint();
     }
+
+    /**
+     * Makes the connection between in and out
+     * @param entrada
+     * @param salida
+     */
+    public void addLink(Nodo entrada, Nodo salida) {
+        if (entrada.hasInLink())
+            return;
+        entrada.setInLink(salida);
+        listener.actionPerformed(new ActionEvent(this, entrada.getParent().getReference(),
+                "set" + "#" + entrada.getId() + "#" + "salida" + "#"
+                        + salida.getParent().getReference() + "#" + salida.getId()));
+
+    }
+
     /**
      * Do Nothing!
      * @param e
@@ -256,7 +307,6 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
     @Override
     public void mouseMoved(MouseEvent e) {
     }
-
     /**
      * Do Nothing!
      * @param e

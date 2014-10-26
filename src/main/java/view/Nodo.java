@@ -7,13 +7,41 @@ import java.awt.*;
  */
 public class Nodo extends Rectangle {
     private Componente parent;
+    private Nodo inLink;
+    private int id;
 
-    public Nodo(Rectangle rect, Componente pParent) {
+    public Nodo(Rectangle rect, int id, Componente pParent) {
         this.setRect(rect);
         parent = pParent;
     }
 
     public Componente getParent() {
         return parent;
+    }
+
+    /**
+     * Tells you if it has a link
+     *
+     * @return bool
+     */
+    public boolean hasInLink() {
+        return inLink != null;
+    }
+
+    public Nodo getInLink() {
+        return inLink;
+    }
+
+    /**
+     * Adds a link for drawing
+     *
+     * @param in entrada
+     */
+    public void setInLink(Nodo in) {
+        inLink = in;
+    }
+
+    public int getId() {
+        return id;
     }
 }

@@ -178,9 +178,13 @@ public class Componente extends Rectangle implements Commons {
         double posXInicial = posX - HALF_SIZE;
         double posYInicial = largoDiv - HALF_SIZE;
         for (int i = 0; i < num; i++) {
-            Nodo rect = new Nodo(new Rectangle((int) (this.x + posXInicial), (int) (this.y + posYInicial + (i * largoDiv)), NODO_SIZE, NODO_SIZE), this);
+            Nodo rect = new Nodo(new Rectangle((int) (this.x + posXInicial), (int) (this.y + posYInicial + (i * largoDiv)), NODO_SIZE, NODO_SIZE), i, this);
             list.append(rect);
         }
+    }
+
+    public int getReference() {
+        return reference;
     }
 
     public List<Nodo> getRectEntradas() {
@@ -191,4 +195,5 @@ public class Componente extends Rectangle implements Commons {
         return rectSalidas;
     }
 }
+
 
