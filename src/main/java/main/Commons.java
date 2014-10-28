@@ -51,8 +51,12 @@ public interface Commons {
             NOR2_PATH, XOR2_PATH, XNOR2_PATH, CUSTOM_PATH);
     public static final int IMAGE_SIZE = 100;
     public static final int BORDER = 40;
-    public static final int NODO_SIZE = 10;
+    public static final int NODO_SIZE = 8;
     public static final int MAX_ENTRADAS = 40;
+    public static final int ADD = 0;
+    public static final int REMOVE = 1;
+    public static final int SET = 2;
+    public static final int CHECKC = 3;
 }
 
 

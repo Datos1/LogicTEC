@@ -54,9 +54,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
      * @param g2d graphics
      */
     private void paintComponentsAndMore(Graphics2D g2d) {
-        for (
-                int i = 0;
-                i < components.getLength(); i++)
+        for (int i = 0; i < components.getLength(); i++)
 
         {
             Componente component = components.get(i);
@@ -68,7 +66,10 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
                 Nodo entrada = inpts.get(j);
                 g2d.fillRect(entrada.x, entrada.y, entrada.width, entrada.height);
                 if (entrada.hasInLink())
-                    drawLine(g2d, entrada.x, entrada.y, entrada.getInLink().x, entrada.getInLink().y);
+                    drawLine(g2d, entrada.x + NODO_SIZE / 2,
+                            entrada.y + NODO_SIZE / 2,
+                            entrada.getInLink().x + NODO_SIZE / 2,
+                            entrada.getInLink().y + NODO_SIZE / 2);
             }
             List<Nodo> outpts = component.getRectSalidas();
             for (int j = 0; j < outpts.getLength(); j++) {
@@ -132,7 +133,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
     }
     private void deleteComponent(int id) {
         components.remove(id);
-        listener.actionPerformed(new ActionEvent(this, id, DELETE));
+        listener.actionPerformed(new ActionEvent(this, id, REMOVE + ""));
         repaint();
     }
     /**
@@ -149,7 +150,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
                     listener.actionPerformed(new ActionEvent(this, id,
-                            text + "#" + selectedFile.getPath()));
+                            ADD + "#" + text + "#" + selectedFile.getPath()));
 
                 }
             } else {

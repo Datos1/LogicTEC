@@ -1,5 +1,6 @@
 package controller;
 
+import main.Commons;
 import model.LogicTecModel;
 import view.LogicTecView;
 
@@ -9,7 +10,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by pablo on 24/10/14.
  */
-public class LogicTecController {
+public class LogicTecController implements Commons {
     private LogicTecModel theModel;
     private LogicTecView theView;
 
@@ -28,6 +29,15 @@ public class LogicTecController {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+            int id = e.getID();
+            String[] command = e.getActionCommand().split("#");
+            switch (Integer.parseInt(command[0])) {
+                case ADD:
+                case REMOVE:
+                case SET:
+                case CHECKC:
+
+            }
 
         }
     }
