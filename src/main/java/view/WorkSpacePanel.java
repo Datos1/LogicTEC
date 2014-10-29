@@ -149,8 +149,8 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
                 int returnValue = fileChooser.showOpenDialog(null);
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
-                    listener.actionPerformed(new ActionEvent(this, id,
-                            ADD + "#" + text + "#" + selectedFile.getPath()));
+                    listener.actionPerformed(new ActionEvent(this, ADD,
+                            id + "#" + text + "#" + selectedFile.getPath()));
 
                 }
             } else {
@@ -167,9 +167,10 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
                     inputs = askNumber("Entradas", text, MAX_ENTRADAS);
                     outputs = 1;
                 }
+                listener.actionPerformed(new ActionEvent(this, ADD,
+                        id + "#" + inputs + "#" + outputs));
             }
-            listener.actionPerformed(new ActionEvent(this, id,
-                    text + "#" + inputs + "#" + outputs));
+
             String path = getPath(text, 0);
             String path2 = getPath(text, 1);
             components.append(new Componente(id++, dropArea, path, path2, inputs, outputs));
@@ -311,8 +312,8 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
         if (entrada.hasInLink())
             return;
         entrada.setInLink(salida);
-        listener.actionPerformed(new ActionEvent(this, entrada.getParent().getReference(),
-                "set" + "#" + entrada.getId() + "#" + "salida" + "#"
+        listener.actionPerformed(new ActionEvent(this, SET,
+                entrada.getParent().getReference() + "#" + entrada.getId() + "#" + "salida" + "#"
                         + salida.getParent().getReference() + "#" + salida.getId()));
 
     }

@@ -31,13 +31,13 @@ public class LogicTecController implements Commons {
         public void actionPerformed(ActionEvent e) {
             int id = e.getID();
             String[] command = e.getActionCommand().split("#");
-            switch (Integer.parseInt(command[0])) {
+            switch (id) {
                 case ADD:
                 case REMOVE:
                 case SET:
                 case CHECKC:
-
             }
+
 
         }
     }
