@@ -3,6 +3,8 @@ package view;
 import main.Commons;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,9 +15,12 @@ import static java.awt.Toolkit.getDefaultToolkit;
  */
 public class LogicTecView extends JFrame implements Commons, ActionListener {
     JMenuBar menuBar = new JMenuBar();
+    JPanel statusPanel = new JPanel();
+    JLabel statusLabel = new JLabel(CHECK);
     WorkSpacePanel panel;
     int ANCHO = (int) getDefaultToolkit().getScreenSize().getWidth() * 2 / 3;
     int ALTO = (int) getDefaultToolkit().getScreenSize().getHeight() * 2 / 3;
+    private ActionListener listener;
 
     public LogicTecView() {
         super();
@@ -40,6 +45,14 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
         for (int i = 0; i < COMPONENTS.getLength(); i++) { //creates add menu with components
             menuNew.add(createMenuItem(COMPONENTS.get(i)));
         }
+        statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        this.add(statusPanel, BorderLayout.SOUTH);
+        statusPanel.setPreferredSize(new Dimension(this.getWidth(), 16));
+        statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
+
+        statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        statusPanel.add(statusLabel);
+
 
         this.setVisible(true);
     }
@@ -69,6 +82,9 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
             if (e.getActionCommand().equals(COMPONENTS.get(i)))
                 panel.createComponent(COMPONENTS.get(i));
         }
+        if (e.getActionCommand().equals(CHECK))
+            listener.actionPerformed(new ActionEvent(this, CHECKC, ""));
+
     }
 
     /**
@@ -77,6 +93,19 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
      * @param listener
      */
     public void addListener(ActionListener listener) {
+        this.listener = listener;
         panel.addListener(listener);
+    }
+
+    public void setOut(String[] command) {
+        panel.setOut(Integer.parseInt(command[0]), Boolean.parseBoolean(command[1]));
+    }
+
+    public void checkCircuit() {
+        statusLabel.setText(CHECK);
+    }
+
+    public void rightCircuit() {
+        statusLabel.setText(RIGHT);
     }
 }

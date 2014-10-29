@@ -7,8 +7,8 @@ public class CompuertaNot extends CompuertaLogica {
     /**
      * Asigna la cantidad de entradas y salidas
      */
-    public CompuertaNot() {
-        super(1, 1);//Dos entradas , una salida
+    public CompuertaNot(int id) {
+        super(id, 1, 1);//Dos entradas , una salida
     }
 
     /**
@@ -20,6 +20,6 @@ public class CompuertaNot extends CompuertaLogica {
     @Override
     public boolean getOutput(int i) {
         if (super.getOutput(i)) return false;
-        return !getOutput(i);
+        return !getInput(i);
     }
 }

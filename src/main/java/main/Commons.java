@@ -14,6 +14,7 @@ public interface Commons {
     public static final String SAVE_ADD = "Guardar y añadir";
     public static final String OPEN = "Abrir";
     public static final String CHECK = "Chequear circuito";
+    public static final String RIGHT = "El circuito se encuentra bien.";
     public static final String ABOUT = "Acerca";
     public static final String MENU_FILE = "Archivo";
     public static final String IN = "Entrada";
@@ -50,13 +51,14 @@ public interface Commons {
     public static final List<String> COMPONENTS2_PATH = new List<String>(IN, OUT, NOT2_PATH, AND2_PATH, NAND2_PATH, OR2_PATH,
             NOR2_PATH, XOR2_PATH, XNOR2_PATH, CUSTOM_PATH);
     public static final int IMAGE_SIZE = 100;
-    public static final int BORDER = 40;
+    public static final int BORDER = 60;
     public static final int NODO_SIZE = 8;
     public static final int MAX_ENTRADAS = 40;
     public static final int ADD = 0;
     public static final int REMOVE = 1;
     public static final int SET = 2;
     public static final int CHECKC = 3;
+    public static final int SET_INOUT = 4;
 
 }
 

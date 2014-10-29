@@ -19,6 +19,7 @@ public class Componente extends Rectangle implements Commons {
     private int reference;
     private int inputs;
     private int outputs;
+    private boolean dValue = false;
     private List<Salida> entradas = new List<Salida>();
     private List<Nodo> rectEntradas = new List<Nodo>();
     private List<Nodo> rectSalidas = new List<Nodo>();
@@ -70,7 +71,7 @@ public class Componente extends Rectangle implements Commons {
     }
 
     /**
-     * hace el set de la entrada
+     * hace el setOut de la entrada
      *
      * @param id     numero de entrada
      * @param salida apuntando
@@ -219,13 +220,25 @@ public class Componente extends Rectangle implements Commons {
         return outputs == 0;
     }
 
+    public boolean changeDigitalValue() {
+        if (isIn()) {
+            dValue = !dValue;
+            Image tmp = image;
+            image = sImage;
+            sImage = tmp;
+        }
+        return dValue;
+    }
 
-    public void changeDigitalValue() {
-        if (isIn() || isOut()) {
+    public void changeDigitalValue(boolean aBoolean) {
+        if (aBoolean != dValue) {
+            dValue = aBoolean;
             Image tmp = image;
             image = sImage;
             sImage = tmp;
         }
     }
+
+
 }
 

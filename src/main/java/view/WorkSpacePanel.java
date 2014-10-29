@@ -133,7 +133,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
     }
     private void deleteComponent(int id) {
         components.remove(id);
-        listener.actionPerformed(new ActionEvent(this, id, REMOVE + ""));
+        listener.actionPerformed(new ActionEvent(this, REMOVE, id + ""));
         repaint();
     }
     /**
@@ -168,7 +168,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
                     outputs = 1;
                 }
                 listener.actionPerformed(new ActionEvent(this, ADD,
-                        id + "#" + inputs + "#" + outputs));
+                        id + "#" + text + "#" + inputs));
             }
 
             String path = getPath(text, 0);
@@ -208,6 +208,17 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
         return "";
     }
 
+    public void setOut(int i, boolean aBoolean) {
+        for (int j = 0; j < components.getLength(); j++) {
+            Componente component = components.get(i);
+            if (component.equals(i)) {
+                component.changeDigitalValue(aBoolean);
+                break;
+            }
+
+        }
+        repaint();
+    }
 
     private boolean freeSpace() {
         for (int i = 0; i < components.getLength(); i++) {
@@ -313,7 +324,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
             return;
         entrada.setInLink(salida);
         listener.actionPerformed(new ActionEvent(this, SET,
-                entrada.getParent().getReference() + "#" + entrada.getId() + "#" + "salida" + "#"
+                entrada.getParent().getReference() + "#" + entrada.getId() + "#"
                         + salida.getParent().getReference() + "#" + salida.getId()));
 
     }
@@ -329,9 +340,10 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
 
             if (component.contains(click.getPoint())) {
                 if (SwingUtilities.isLeftMouseButton(click)) {
-                    if (component.isIn())
-                        component.changeDigitalValue();
-                    listener.actionPerformed(new ActionEvent(this, component.getReference(), "change"));
+                    if (component.isIn()) {
+                        boolean value = component.changeDigitalValue();
+                        listener.actionPerformed(new ActionEvent(this, SET_INOUT, component.getReference() + "#" + value));
+                    }
                 }
                 if (SwingUtilities.isRightMouseButton(click)) {
                     deleteComponent(j);
@@ -366,5 +378,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
     public void mouseExited(MouseEvent e) {
         inside = false;
     }
+
+
 }
 

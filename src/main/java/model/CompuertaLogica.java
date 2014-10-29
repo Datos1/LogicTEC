@@ -9,6 +9,7 @@ import data.List;
 public class CompuertaLogica {
     private int numOutputs;
     private List<Salida> inputs;
+    private int reference;
 
     /**
      * Asigna la cantidad de entradas y salidas
@@ -16,7 +17,9 @@ public class CompuertaLogica {
      * @param pEntradas
      * @param pSalidas
      */
-    public CompuertaLogica(int pEntradas, int pSalidas) {
+    public CompuertaLogica(int id, int pEntradas, int pSalidas) {
+        reference = id;
+        numOutputs = pSalidas;
         inputs = new List<Salida>();
         for (int i = 0; i < pEntradas; i++) {
             inputs.append(null);
@@ -33,6 +36,10 @@ public class CompuertaLogica {
     }
 
     protected boolean getInput(int i) {
+        if (inputs.get(i) == null) {
+            System.out.println("Circuito Incompleto");
+            throw new NullPointerException();
+        }
         return inputs.get(i).getValue();
     }
 
@@ -62,4 +69,11 @@ public class CompuertaLogica {
         return numOutputs;
     }
 
+    public boolean equals(int id) {
+        return reference == id;
+    }
+
+    public int getReference() {
+        return reference;
+    }
 }

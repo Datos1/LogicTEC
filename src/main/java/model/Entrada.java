@@ -13,10 +13,14 @@ public class Entrada extends CompuertaLogica {
      *
      * @param pValue boolean
      */
-    public Entrada(boolean pValue) {
-        super(0, 1);//0 entradas, 1 salida
+    public Entrada(int id, boolean pValue) {
+        super(id, 0, 1);//0 entradas, 1 salida
         this.value = pValue;
 
+    }
+
+    public void change(boolean pValue) {
+        value = pValue;
     }
 
     @Override

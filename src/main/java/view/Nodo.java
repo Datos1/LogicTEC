@@ -10,7 +10,8 @@ public class Nodo extends Rectangle {
     private Nodo inLink;
     private int id;
 
-    public Nodo(Rectangle rect, int id, Componente pParent) {
+    public Nodo(Rectangle rect, int pId, Componente pParent) {
+        id = pId;
         this.setRect(rect);
         parent = pParent;
     }

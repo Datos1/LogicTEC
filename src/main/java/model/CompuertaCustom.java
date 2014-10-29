@@ -11,8 +11,8 @@ public class CompuertaCustom extends CompuertaLogica {
      * @param pEntradas
      * @param pSalidas
      */
-    public CompuertaCustom(int pEntradas, int pSalidas) {
-        super(pEntradas, pSalidas);
+    public CompuertaCustom(int id, int pEntradas, int pSalidas) {
+        super(id, pEntradas, pSalidas);
     }
 
 }

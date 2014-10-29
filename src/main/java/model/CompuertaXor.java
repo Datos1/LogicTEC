@@ -7,12 +7,8 @@ public class CompuertaXor extends CompuertaLogica {
     /**
      * Asigna la cantidad de entradas y salidas
      */
-    public CompuertaXor() {
-        super(2, 1);//Dos entradas , una salida
-    }
-
-    public CompuertaXor(int numEntradas) {
-        super(numEntradas, 1);//x entradas , una salida
+    public CompuertaXor(int id, int numEntradas) {
+        super(id, numEntradas, 1);//x entradas , una salida
     }
 
     /**
@@ -26,7 +22,7 @@ public class CompuertaXor extends CompuertaLogica {
         if (super.getOutput(i)) return false;
         int counter = 0;
         for (int j = 0; j < getNumInputs(); j++)
-            if (getInput(i))
+            if (getInput(j))
                 counter++;
 
         return (counter % 2 != 0);

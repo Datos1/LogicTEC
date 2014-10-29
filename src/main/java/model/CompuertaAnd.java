@@ -8,12 +8,8 @@ public class CompuertaAnd extends CompuertaLogica {
     /**
      * Asigna la cantidad de entradas y salidas
      */
-    public CompuertaAnd() {
-        super(2, 1);//Dos entradas , una salida
-    }
-
-    public CompuertaAnd(int numEntradas) {
-        super(numEntradas, 1);//x entradas , una salida
+    public CompuertaAnd(int id, int numEntradas) {
+        super(id, numEntradas, 1);//x entradas , una salida
     }
 
     /**
@@ -26,7 +22,7 @@ public class CompuertaAnd extends CompuertaLogica {
     public boolean getOutput(int i) {
         if (super.getOutput(i)) return false;
         for (int j = 0; j < getNumInputs(); j++)
-            if (!getInput(i)) return false;
+            if (!getInput(j)) return false;
         return true;
     }
 }
