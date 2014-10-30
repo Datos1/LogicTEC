@@ -128,8 +128,11 @@ public class List<T> {
             else {
                 for (int x = 0; x < i - 1; x++)
                     ele = ele.getNext();
-                if (i == length - 1)
+                if (i == length - 1) {
                     ele.setNext(null);
+                    _tail = ele;
+                }
+
                 else
                     ele.setNext(ele.getNext().getNext());
             }
