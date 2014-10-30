@@ -210,7 +210,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
 
     public void setOut(int i, boolean aBoolean) {
         for (int j = 0; j < components.getLength(); j++) {
-            Componente component = components.get(i);
+            Componente component = components.get(j);
             if (component.equals(i)) {
                 component.changeDigitalValue(aBoolean);
                 break;
@@ -380,5 +380,11 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
     }
 
 
+    public void changeTheme() {
+        theme = !theme;
+        repaint();
+    }
 }
+
+
 

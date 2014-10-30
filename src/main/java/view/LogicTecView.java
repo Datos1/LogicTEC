@@ -38,6 +38,7 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
         menuFile.add(createMenuItem(SAVE));
         menuFile.add(createMenuItem(OPEN));
         menuFile.add(createMenuItem(CHECK));
+        menuFile.add(createMenuItem(THEME));
         menuFile.add(createMenuItem(ABOUT));
         JMenu menuNew = new JMenu(MENU_NEW);
         menuBar.add(menuNew);
@@ -84,6 +85,8 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
         }
         if (e.getActionCommand().equals(CHECK))
             listener.actionPerformed(new ActionEvent(this, CHECKC, ""));
+        else if (e.getActionCommand().equals(THEME))
+            panel.changeTheme();
 
     }
 
