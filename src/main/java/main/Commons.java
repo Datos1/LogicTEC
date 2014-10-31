@@ -1,6 +1,7 @@
 package main;
 
 import data.List;
+import model.LogicTecModel;
 
 /**
  * Created by pablo on 15/10/14.
@@ -13,6 +14,7 @@ public interface Commons {
     public static final String SAVE = "Guardar";
     public static final String SAVE_ADD = "Guardar y añadir";
     public static final String THEME = "Cambiar tema";
+    public static final String TABLA = "Generar Tabla";
     public static final String OPEN = "Abrir";
     public static final String CHECK = "Chequear circuito";
     public static final String RIGHT = "El circuito se encuentra bien.";

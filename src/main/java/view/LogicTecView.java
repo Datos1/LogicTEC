@@ -1,6 +1,7 @@
 package view;
 
 import main.Commons;
+import model.LogicTecModel;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -14,6 +15,7 @@ import static java.awt.Toolkit.getDefaultToolkit;
  * Created by pablo on 15/10/14.
  */
 public class LogicTecView extends JFrame implements Commons, ActionListener {
+    private LogicTecModel model;
     JMenuBar menuBar = new JMenuBar();
     JPanel statusPanel = new JPanel();
     JLabel statusLabel = new JLabel(CHECK);
@@ -22,12 +24,13 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
     int ALTO = (int) getDefaultToolkit().getScreenSize().getHeight() * 2 / 3;
     private ActionListener listener;
 
-    public LogicTecView() {
+    public LogicTecView(LogicTecModel modelo) {
         super();
         setTitle(VENTANA_NOMBRE);
         setSize(ANCHO, ALTO + BORDER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         init();
+        model=modelo;
     }
 
     private void init() {
@@ -39,6 +42,7 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
         menuFile.add(createMenuItem(OPEN));
         menuFile.add(createMenuItem(CHECK));
         menuFile.add(createMenuItem(THEME));
+        menuFile.add(createMenuItem(TABLA));
         menuFile.add(createMenuItem(ABOUT));
         JMenu menuNew = new JMenu(MENU_NEW);
         menuBar.add(menuNew);
@@ -85,11 +89,30 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
         }
         if (e.getActionCommand().equals(CHECK))
             listener.actionPerformed(new ActionEvent(this, CHECKC, ""));
+        else if(e.getActionCommand().equals(ABOUT))
+            crearVentanaAcerca();
+        else if(e.getActionCommand().equals(TABLA))
+            generateTable();
         else if (e.getActionCommand().equals(THEME))
             panel.changeTheme();
 
     }
 
+    public void generateTable(){
+        model.crearTabla();
+    }
+    public void crearVentanaAcerca(){
+        JFrame acercaFrame = new JFrame();
+        JPanel acercaPanel = new JPanel();
+        JLabel acercaLabel=new JLabel();
+        acercaPanel.setLayout(new BoxLayout(acercaPanel, BoxLayout.Y_AXIS));
+        acercaFrame.add(acercaPanel);
+        acercaLabel.setText("LogicTec v1.0");
+        acercaPanel.add(acercaLabel);
+        acercaFrame.pack();
+        acercaFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        acercaFrame.setVisible(true);
+    }
     /**
      * sets panel listener
      *

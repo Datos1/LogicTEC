@@ -11,15 +11,9 @@ public class CompuertaNot extends CompuertaLogica {
         super(id, 1, 1);//Dos entradas , una salida
     }
 
-    /**
-     * Obtener salida en pin
-     *
-     * @param i numero de la salida de 0 a n-1
-     * @return el valor de verdad de la salida
-     */
     @Override
-    public boolean getOutput(int i) {
-        if (super.getOutput(i)) return false;
-        return !getInput(i);
+    public boolean getOutput() {
+
+        return !getInput(0);
     }
 }

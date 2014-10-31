@@ -1,13 +1,14 @@
 package model;
 
 /**
- * Created by pablo on 15/10/14.
+ * Created by Stiven on 10/30/2014.
  */
-public class CompuertaXor extends CompuertaLogica {
+public class CompuertaXNor extends CompuertaLogica{
+
     /**
      * Asigna la cantidad de entradas y salidas
      */
-    public CompuertaXor(int id, int numEntradas) {
+    public CompuertaXNor(int id, int numEntradas) {
         super(id, numEntradas, 1);//x entradas , una salida
     }
 
@@ -25,6 +26,5 @@ public class CompuertaXor extends CompuertaLogica {
             if (getInput(j))
                 counter++;
 
-        return (counter % 2 != 0);
-    }
-}
+        return !(counter % 2 != 0);
+    }}

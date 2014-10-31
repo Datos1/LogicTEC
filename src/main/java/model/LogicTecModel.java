@@ -1,6 +1,7 @@
 package model;
 
 import data.List;
+import data.Node;
 import main.Commons;
 
 import java.awt.event.ActionEvent;
@@ -10,6 +11,7 @@ import java.awt.event.ActionListener;
  * Created by pablo on 24/10/14.
  */
 public class LogicTecModel implements Commons {
+    private VFTable tablaVerdad;
     private ActionListener listener;
     private List<CompuertaLogica> compuertas = new List<CompuertaLogica>();
     private List<Entrada> entradas = new List<Entrada>();
@@ -26,9 +28,9 @@ public class LogicTecModel implements Commons {
             else if (type.equals(OR)) compuertas.append(new CompuertaOr(id, inputs));
             else if (type.equals(XOR)) compuertas.append(new CompuertaXor(id, inputs));
             else if (type.equals(NOT)) compuertas.append(new CompuertaNot(id));
-            else if (type.equals(NAND)) compuertas.append(new CompuertaNot(id));
-            else if (type.equals(NOR)) compuertas.append(new CompuertaNot(id));
-            else if (type.equals(XNOR)) compuertas.append(new CompuertaNot(id));
+            else if (type.equals(NAND)) compuertas.append(new CompuertaNAnd(id,inputs));
+            else if (type.equals(NOR)) compuertas.append(new CompuertaNor(id,inputs));
+            else if (type.equals(XNOR)) compuertas.append(new CompuertaXNor(id,inputs));
             else if (type.equals(IN)) {
                 Entrada entrada = new Entrada(id, false);
                 entradas.append(entrada);
@@ -41,6 +43,17 @@ public class LogicTecModel implements Commons {
         }
 
 
+    }
+
+    public void setEntrada(int entrada,boolean i){
+        Node o=entradas.getNode(entrada);
+        Entrada a=(Entrada)o.getData();
+        a.change(i);
+    }
+    public boolean getSalida(int Salida){
+        Node o=salidas.getNode(Salida);
+        CompuertaLogica a=(CompuertaLogica)o.getData();
+        return a.getOutput();
     }
 
     public void remove(String[] command) {
@@ -69,6 +82,13 @@ public class LogicTecModel implements Commons {
             System.out.println("ERROR");
         compIn.setInput(noIn, new Salida(compOut, noOut));
         check();
+    }
+
+    public void crearTabla(){
+        tablaVerdad=new VFTable(this.entradas.getLength(),this.salidas.getLength(),this);
+        tablaVerdad.crearTabla();
+        tablaVerdad.completarTabla();
+        tablaVerdad.printTabla();
     }
 
     public void check() {
