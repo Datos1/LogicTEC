@@ -6,9 +6,9 @@
 	</contentEntry>
 	<levels>
 		<level name="Maven: org.json:json:20090211" value="project"/>
+		<level name="json-simple-1.1.1" value="project"/>
 		<level name="Maven: com.googlecode.json-simple:json-simple:1.1.1" value="project"/>
 		<level name="Maven: junit:junit:4.10" value="project"/>
 		<level name="Maven: org.hamcrest:hamcrest-core:1.1" value="project"/>
-		<level name="json-simple-1.1.1" value="project"/>
 	</levels>
 </component>

@@ -96,11 +96,15 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
         //else if (e.getActionCommand().equals(SAVE))
         }
 
+    /**
+     * creates truth table on gui.
+     * @param tabla
+     */
     public void PantallaTabla(VFTable tabla){
         JFrame TablaFrame = new JFrame();
         JPanel TablaPanel = new JPanel();
         JLabel TablaLabel=new JLabel();
-        Dimension dimension=new Dimension(220,150);
+        Dimension dimension=new Dimension(310,220);
         TablaFrame.setMinimumSize(dimension);
         TablaPanel.setLayout(null);
         TablaPanel.setBounds(0, 0, 100, 100);
@@ -143,13 +147,23 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
         }
 
     }
+
+    /**
+     * generates table
+     */
     public void generateTable(){
         listener.actionPerformed(new ActionEvent(this, TABLAID, ""));
     }
+
+    /**
+     * creates about window
+     */
     public void crearVentanaAcerca(){
         JFrame acercaFrame = new JFrame();
         JPanel acercaPanel = new JPanel();
         JLabel acercaLabel=new JLabel();
+        Dimension dimension=new Dimension(100,50);
+       acercaFrame.setMinimumSize(dimension);
         acercaPanel.setLayout(new BoxLayout(acercaPanel, BoxLayout.Y_AXIS));
         acercaFrame.add(acercaPanel);
         acercaLabel.setText("LogicTec v1.0");
@@ -168,14 +182,24 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
         panel.addListener(listener);
     }
 
+    /**
+     * sets output
+     * @param command
+     */
     public void setOut(String[] command) {
         panel.setOut(Integer.parseInt(command[0]), Boolean.parseBoolean(command[1]));
     }
 
+    /**
+     * sets text to check variable.
+     */
     public void checkCircuit() {
         statusLabel.setText(CHECK);
     }
 
+    /**
+     * sets text to right variable.
+     */
     public void rightCircuit() {
         statusLabel.setText(RIGHT);
     }

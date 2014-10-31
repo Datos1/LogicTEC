@@ -10,6 +10,9 @@ import org.json.simple.JSONObject;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * to write json files.
+ */
 public class JSONWrite {
     public void writeNumbers (int pTamano) {
 
@@ -21,18 +24,8 @@ public class JSONWrite {
             int ram = (int) (Math.random() * 100000);
             list.add(ram + "");
         }
-//		list.add("tag 1");
-//		list.add("tag 2");
-//		list.add("tag 3");
-//
-        obj.put("Tags", list);
 
-//		JSONObject innerObj = new JSONObject();
-//		innerObj.put("PostX","Escribir un JSON");
-//		innerObj.put("PostY", "Leer un JSON");
-//		innerObj.put("PostZ", "lalala");
-//
-//		obj.put("Posts",innerObj);
+        obj.put("Tags", list);
 
         try {
             System.out.println("Guardando");

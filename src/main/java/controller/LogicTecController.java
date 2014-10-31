@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by pablo on 24/10/14.
+ * communicates logic
  */
 public class LogicTecController implements Commons {
     private LogicTecModel theModel;
@@ -56,6 +56,9 @@ public class LogicTecController implements Commons {
         }
     }
 
+    /**
+     * listener for model
+     */
     class ModelListener implements ActionListener {
 
         /**

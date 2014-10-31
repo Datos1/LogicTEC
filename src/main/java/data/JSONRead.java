@@ -12,6 +12,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ * to read json files.
+ */
 public class JSONRead {
     public String[] JSONReadInt( String pNombre, int pCantidad) {
 
