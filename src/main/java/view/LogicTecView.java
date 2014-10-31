@@ -7,7 +7,7 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import view.Options.*;
 import static java.awt.Toolkit.getDefaultToolkit;
 
 /**
@@ -39,6 +39,7 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
         menuFile.add(createMenuItem(OPEN));
         menuFile.add(createMenuItem(CHECK));
         menuFile.add(createMenuItem(THEME));
+        menuFile.add(createMenuItem(TABLA));
         menuFile.add(createMenuItem(ABOUT));
         JMenu menuNew = new JMenu(MENU_NEW);
         menuBar.add(menuNew);
@@ -85,11 +86,30 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
         }
         if (e.getActionCommand().equals(CHECK))
             listener.actionPerformed(new ActionEvent(this, CHECKC, ""));
+        else if(e.getActionCommand().equals(ABOUT))
+            crearVentanaAcerca();
+        else if(e.getActionCommand().equals(TABLA))
+            generateTable();
         else if (e.getActionCommand().equals(THEME))
             panel.changeTheme();
 
     }
 
+    public void generateTable(){
+        // TO DO HERE.
+    }
+    public void crearVentanaAcerca(){
+        JFrame acercaFrame = new JFrame();
+        JPanel acercaPanel = new JPanel();
+        JLabel acercaLabel=new JLabel();
+        acercaPanel.setLayout(new BoxLayout(acercaPanel, BoxLayout.Y_AXIS));
+        acercaFrame.add(acercaPanel);
+        acercaLabel.setText("LogicTec v1.0");
+        acercaPanel.add(acercaLabel);
+        acercaFrame.pack();
+        acercaFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        acercaFrame.setVisible(true);
+    }
     /**
      * sets panel listener
      *

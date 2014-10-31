@@ -348,6 +348,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
                 if (SwingUtilities.isRightMouseButton(click)) {
                     deleteComponent(j);
 
+
                 }
 
 

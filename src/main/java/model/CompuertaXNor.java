@@ -1,14 +1,14 @@
 package model;
 
 /**
- * Created by pablo on 15/10/14.
+ * Created by Stiven on 10/30/2014.
  */
-public class CompuertaAnd extends CompuertaLogica {
+public class CompuertaXNor extends CompuertaLogica{
 
     /**
      * Asigna la cantidad de entradas y salidas
      */
-    public CompuertaAnd(int id, int numEntradas) {
+    public CompuertaXNor(int id, int numEntradas) {
         super(id, numEntradas, 1);//x entradas , una salida
     }
 
@@ -21,9 +21,10 @@ public class CompuertaAnd extends CompuertaLogica {
     @Override
     public boolean getOutput(int i) {
         if (super.getOutput(i)) return false;
+        int counter = 0;
         for (int j = 0; j < getNumInputs(); j++)
-            if (!getInput(j)) return false;
-        return true;
-    }
+            if (getInput(j))
+                counter++;
 
-}
+        return !(counter % 2 != 0);
+    }}

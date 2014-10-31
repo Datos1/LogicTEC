@@ -26,9 +26,9 @@ public class LogicTecModel implements Commons {
             else if (type.equals(OR)) compuertas.append(new CompuertaOr(id, inputs));
             else if (type.equals(XOR)) compuertas.append(new CompuertaXor(id, inputs));
             else if (type.equals(NOT)) compuertas.append(new CompuertaNot(id));
-            else if (type.equals(NAND)) compuertas.append(new CompuertaNot(id));
-            else if (type.equals(NOR)) compuertas.append(new CompuertaNot(id));
-            else if (type.equals(XNOR)) compuertas.append(new CompuertaNot(id));
+            else if (type.equals(NAND)) compuertas.append(new CompuertaNAnd(id,inputs));
+            else if (type.equals(NOR)) compuertas.append(new CompuertaNor(id,inputs));
+            else if (type.equals(XNOR)) compuertas.append(new CompuertaXNor(id,inputs));
             else if (type.equals(IN)) {
                 Entrada entrada = new Entrada(id, false);
                 entradas.append(entrada);

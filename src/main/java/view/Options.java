@@ -25,4 +25,6 @@ public class Options extends JFrame {
         options.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         options.setVisible(true);
     }
+
+
 }

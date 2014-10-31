@@ -1,16 +1,17 @@
 package model;
 
 /**
- * Created by pablo on 15/10/14.
+ * Created by Stiven on 10/30/2014.
  */
-public class CompuertaAnd extends CompuertaLogica {
+public class CompuertaNor extends CompuertaLogica{
 
     /**
      * Asigna la cantidad de entradas y salidas
      */
-    public CompuertaAnd(int id, int numEntradas) {
+    public CompuertaNor(int id, int numEntradas) {
         super(id, numEntradas, 1);//x entradas , una salida
     }
+
 
     /**
      * Obtener salida en pin
@@ -22,8 +23,7 @@ public class CompuertaAnd extends CompuertaLogica {
     public boolean getOutput(int i) {
         if (super.getOutput(i)) return false;
         for (int j = 0; j < getNumInputs(); j++)
-            if (!getInput(j)) return false;
+            if (getInput(j)) return false;
         return true;
     }
-
 }
