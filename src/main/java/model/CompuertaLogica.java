@@ -38,7 +38,7 @@ public class CompuertaLogica {
 
     protected boolean getInput(int i) {
         if (inputs.get(i) == null) {
-            System.out.println("Circuito Incompleto");
+           // System.out.println("Circuito Incompleto");
             throw new NullPointerException();
         }
         return inputs.get(i).getValue();
