@@ -8,7 +8,7 @@ public class CompuertaCustom extends CompuertaLogica {
     /**
      * Asigna la cantidad de entradas y salidas
      *
-     * @param pEntradas
+     * @param pEntradas 
      * @param pSalidas
      */
     public CompuertaCustom(int id, int pEntradas, int pSalidas) {
