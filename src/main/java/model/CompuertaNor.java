@@ -20,8 +20,8 @@ public class CompuertaNor extends CompuertaLogica{
      * @return el valor de verdad de la salida
      */
     @Override
-    public boolean getOutput(int i) {
-        if (super.getOutput(i)) return false;
+    public boolean getOutput() {
+
         for (int j = 0; j < getNumInputs(); j++)
             if (getInput(j)) return false;
         return true;

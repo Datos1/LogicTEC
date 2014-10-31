@@ -16,7 +16,8 @@ public class List<T> {
     public List() {
 
     }
-
+    public Node getHead(){return _head;}
+    public Node getTail(){return _tail;}
     /**
      * Create List with arguments
      *

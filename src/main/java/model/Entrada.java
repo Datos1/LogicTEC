@@ -24,11 +24,7 @@ public class Entrada extends CompuertaLogica {
     }
 
     @Override
-    /**
-     * @param i position
-     * @return el valor
-     */
-    public boolean getOutput(int i) {
+    public boolean getOutput() {
         return this.value;
     }
 

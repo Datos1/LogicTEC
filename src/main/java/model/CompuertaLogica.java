@@ -1,6 +1,7 @@
 package model;
 
 import data.List;
+import data.Node;
 
 /**
  * Created by pablo on 15/10/14.
@@ -43,16 +44,12 @@ public class CompuertaLogica {
         return inputs.get(i).getValue();
     }
 
-    /**
-     * Obtener salida en pin
-     *
-     * @param i numero de la salida de 0 a n-1
-     * @return el valor de verdad de la salida o si no existe false
-     */
-    public boolean getOutput(int i) {
-        if (i >= getNumOutputs())
-            throw new NullPointerException();
-        return false;
+    public List<Salida> getInputs(){return inputs;}
+
+    public boolean getOutput() {
+        Node o=inputs.getHead();
+        Salida a=(Salida)o.getData();
+        return a.getValue();
     }
 
     /**

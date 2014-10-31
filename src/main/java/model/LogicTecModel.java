@@ -1,6 +1,7 @@
 package model;
 
 import data.List;
+import data.Node;
 import main.Commons;
 
 import java.awt.event.ActionEvent;
@@ -41,6 +42,17 @@ public class LogicTecModel implements Commons {
         }
 
 
+    }
+
+    public void setEntrada(int entrada,boolean i){
+        Node o=entradas.getNode(entrada);
+        Entrada a=(Entrada)o.getData();
+        a.change(i);
+    }
+    public boolean getSalida(int Salida){
+        Node o=salidas.getNode(Salida);
+        CompuertaLogica a=(CompuertaLogica)o.getData();
+        return a.getOutput();
     }
 
     public void remove(String[] command) {

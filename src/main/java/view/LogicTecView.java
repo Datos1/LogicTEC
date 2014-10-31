@@ -7,7 +7,7 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import view.Options.*;
+
 import static java.awt.Toolkit.getDefaultToolkit;
 
 /**
@@ -89,7 +89,7 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
         else if(e.getActionCommand().equals(ABOUT))
             crearVentanaAcerca();
         else if(e.getActionCommand().equals(TABLA))
-            generateTable(); 
+            generateTable();
         else if (e.getActionCommand().equals(THEME))
             panel.changeTheme();
 

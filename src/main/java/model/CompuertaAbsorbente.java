@@ -24,8 +24,7 @@ public class CompuertaAbsorbente extends CompuertaLogica {
     }
 
     @Override
-    public boolean getOutput(int i) {
-        if (super.getOutput(i)) return false;
+    public boolean getOutput() {
         for (int j = 0; j < getNumInputs(); j++) {
             getInput(j);
         }

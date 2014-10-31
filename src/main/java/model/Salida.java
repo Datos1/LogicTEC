@@ -25,6 +25,6 @@ public class Salida {
      * @return
      */
     public boolean getValue() {
-        return parent.getOutput(numSalida);
+        return parent.getOutput();
     }
 }

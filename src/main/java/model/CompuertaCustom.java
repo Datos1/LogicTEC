@@ -15,4 +15,5 @@ public class CompuertaCustom extends CompuertaLogica {
         super(id, pEntradas, pSalidas);
     }
 
+
 }

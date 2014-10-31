@@ -12,15 +12,9 @@ public class CompuertaAnd extends CompuertaLogica {
         super(id, numEntradas, 1);//x entradas , una salida
     }
 
-    /**
-     * Obtener salida en pin
-     *
-     * @param i numero de la salida de 0 a n-1
-     * @return el valor de verdad de la salida
-     */
+
     @Override
-    public boolean getOutput(int i) {
-        if (super.getOutput(i)) return false;
+    public boolean getOutput() {
         for (int j = 0; j < getNumInputs(); j++)
             if (!getInput(j)) return false;
         return true;
