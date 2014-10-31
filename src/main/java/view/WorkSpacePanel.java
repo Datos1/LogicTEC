@@ -31,7 +31,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
         this.size = new Dimension(w, h);
         this.setSize(size);
         this.setBackground(new Color(218, 218, 218));
-        dropArea = new Rectangle(0, size.height - IMAGE_SIZE, IMAGE_SIZE, IMAGE_SIZE);
+        dropArea = new Rectangle(0, 0, IMAGE_SIZE, IMAGE_SIZE);
         addMouseListener(this);
         addMouseMotionListener(this);
         repaint();

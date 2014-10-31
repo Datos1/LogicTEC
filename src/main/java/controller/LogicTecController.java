@@ -45,9 +45,10 @@ public class LogicTecController implements Commons {
                 case SET_INOUT:
                     theModel.setInOut(command);
                     break;
-                case CHECKC:
-                    theModel.check();
+                case TABLAID:
+                    theModel.crearTabla();
                     break;
+
             }
 
 

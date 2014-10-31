@@ -61,6 +61,7 @@ public interface Commons {
     public static final int SET = 2;
     public static final int CHECKC = 3;
     public static final int SET_INOUT = 4;
+    public static final int TABLAID = 5;
 
 }
 

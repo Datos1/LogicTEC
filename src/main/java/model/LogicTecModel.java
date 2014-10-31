@@ -61,6 +61,12 @@ public class LogicTecModel implements Commons {
         for (int i = 0; i < compuertas.getLength(); i++) {
             if (compuertas.get(i).equals(id)) compuertas.remove(i);
         }
+        for (int i = 0; i < salidas.getLength(); i++) {
+            if (salidas.get(i).equals(id)) salidas.remove(i);
+        }
+        for (int i = 0; i < entradas.getLength(); i++) {
+            if (entradas.get(i).equals(id)) entradas.remove(i);
+        }
     }
 
     public void set(String[] command) {
