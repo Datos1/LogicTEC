@@ -1,6 +1,7 @@
 package view;
 
 import main.Commons;
+import model.VFTable;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -92,9 +93,56 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
             generateTable();
         else if (e.getActionCommand().equals(THEME))
             panel.changeTheme();
+        //else if (e.getActionCommand().equals(SAVE))
+        }
+
+    public void PantallaTabla(VFTable tabla){
+        JFrame TablaFrame = new JFrame();
+        JPanel TablaPanel = new JPanel();
+        JLabel TablaLabel=new JLabel();
+        Dimension dimension=new Dimension(220,150);
+        TablaFrame.setMinimumSize(dimension);
+        TablaPanel.setLayout(null);
+        TablaPanel.setBounds(0, 0, 100, 100);
+        TablaFrame.add(TablaPanel);
+        TablaLabel.setText("Tabla de verdad");
+        TablaLabel.setBounds(0,0,100,15);
+        TablaPanel.add(TablaLabel);
+        TablaFrame.pack();
+        TablaFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        TablaFrame.setVisible(true);
+        int x=0;
+        while(x<tabla.getNumeroEntradas()){
+            JLabel Entrada=new JLabel();
+            Entrada.setBounds(52*x+5,20,50,15);
+            Entrada.setText("input " + String.valueOf(x+1));
+            TablaPanel.add(Entrada);
+
+            for(int j=0;j<tabla.getListaEntradas().get(0).getLength();j++){
+                JLabel Bool=new JLabel();
+                Bool.setBounds(52*x+5,(j+1)*15+20,50,15);
+                Bool.setText(String.valueOf(tabla.getListaEntradas().get(x).get(j)));
+                TablaPanel.add(Bool);
+            }
+            x++;
+        }
+        int i=0;
+        while(i<tabla.getNumeroSalidas()){
+            JLabel Salida=new JLabel();
+            Salida.setBounds(52*x+5,20,50,15);
+            Salida.setText("output " + String.valueOf(i+1));
+            TablaPanel.add(Salida);
+            for(int j=0;j<tabla.getListaEntradas().get(0).getLength();j++){
+                JLabel Bool=new JLabel();
+                Bool.setBounds(52*x+5,(j+1)*15+20,50,15);
+                Bool.setText(String.valueOf(tabla.getListaSalidas().get(i).get(j)));
+                TablaPanel.add(Bool);
+            }
+            x++;
+            i++;
+        }
 
     }
-
     public void generateTable(){
         listener.actionPerformed(new ActionEvent(this, TABLAID, ""));
     }

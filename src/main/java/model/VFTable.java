@@ -24,6 +24,10 @@ public class VFTable {
         alternado=LargoLista/2;
         parent=par;
     }
+    public int getNumeroEntradas(){return NumeroEntradas;}
+    public int getNumeroSalidas(){return NumeroSalidas;}
+    public List<List> getListaEntradas(){return entradas;}
+    public List<List> getListaSalidas(){return salidas;}
     public void crearTabla(){
         int x=0;
         while(x<NumeroEntradas){

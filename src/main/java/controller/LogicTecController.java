@@ -47,6 +47,7 @@ public class LogicTecController implements Commons {
                     break;
                 case TABLAID:
                     theModel.crearTabla();
+                    theView.PantallaTabla(theModel.getTablaVerdad());
                     break;
 
             }

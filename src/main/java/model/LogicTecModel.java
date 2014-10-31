@@ -94,7 +94,9 @@ public class LogicTecModel implements Commons {
         tablaVerdad=new VFTable(this.entradas.getLength(),this.salidas.getLength(),this);
         tablaVerdad.crearTabla();
         tablaVerdad.completarTabla();
-        tablaVerdad.printTabla();
+    }
+    public VFTable getTablaVerdad(){
+        return tablaVerdad;
     }
 
     public void check() {
