@@ -1,6 +1,7 @@
 package view;
 
 import main.Commons;
+import model.LogicTecModel;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -14,6 +15,7 @@ import static java.awt.Toolkit.getDefaultToolkit;
  * Created by pablo on 15/10/14.
  */
 public class LogicTecView extends JFrame implements Commons, ActionListener {
+    private LogicTecModel model;
     JMenuBar menuBar = new JMenuBar();
     JPanel statusPanel = new JPanel();
     JLabel statusLabel = new JLabel(CHECK);
@@ -22,12 +24,13 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
     int ALTO = (int) getDefaultToolkit().getScreenSize().getHeight() * 2 / 3;
     private ActionListener listener;
 
-    public LogicTecView() {
+    public LogicTecView(LogicTecModel modelo) {
         super();
         setTitle(VENTANA_NOMBRE);
         setSize(ANCHO, ALTO + BORDER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         init();
+        model=modelo;
     }
 
     private void init() {
@@ -96,7 +99,7 @@ public class LogicTecView extends JFrame implements Commons, ActionListener {
     }
 
     public void generateTable(){
-        // TO DO HERE.
+        model.crearTabla();
     }
     public void crearVentanaAcerca(){
         JFrame acercaFrame = new JFrame();

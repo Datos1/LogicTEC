@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
  * Created by pablo on 24/10/14.
  */
 public class LogicTecModel implements Commons {
+    private VFTable tablaVerdad;
     private ActionListener listener;
     private List<CompuertaLogica> compuertas = new List<CompuertaLogica>();
     private List<Entrada> entradas = new List<Entrada>();
@@ -81,6 +82,13 @@ public class LogicTecModel implements Commons {
             System.out.println("ERROR");
         compIn.setInput(noIn, new Salida(compOut, noOut));
         check();
+    }
+
+    public void crearTabla(){
+        tablaVerdad=new VFTable(this.entradas.getLength(),this.salidas.getLength(),this);
+        tablaVerdad.crearTabla();
+        tablaVerdad.completarTabla();
+        tablaVerdad.printTabla();
     }
 
     public void check() {

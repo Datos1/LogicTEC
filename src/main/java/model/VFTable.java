@@ -78,7 +78,7 @@ public class VFTable {
         return true;
     }
 
-    public void printEntradas(){
+    public void printTabla(){
 
         int x=0;
         Node tmp=entradas.getHead();
@@ -87,6 +87,14 @@ public class VFTable {
             list.print();
             tmp=tmp.getNext();
             x++;
+        }
+        int y=0;
+        Node tmp1=salidas.getHead();
+        while(y<salidas.getLength()){
+            List<Integer> list= (List<Integer>) tmp1.getData();
+            list.print();
+            tmp1=tmp1.getNext();
+            y++;
         }
     }
 }

@@ -1,6 +1,7 @@
 package main;
 
 import data.List;
+import model.LogicTecModel;
 
 /**
  * Created by pablo on 15/10/14.
