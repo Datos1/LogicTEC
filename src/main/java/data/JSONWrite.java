@@ -3,12 +3,12 @@ package data;
 /**
  * Created by Briam on 31/10/2014.
  */
-import java.io.FileWriter;
-import java.io.IOException;
-//import org.json.JSONArray;
-//import org.json.JSONObject;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class JSONWrite {
     public void writeNumbers (int pTamano) {

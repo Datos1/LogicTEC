@@ -1,7 +1,6 @@
 package main;
 
 import data.List;
-import model.LogicTecModel;
 
 /**
  * Created by pablo on 15/10/14.
@@ -45,11 +44,11 @@ public interface Commons {
     public static final String HIGH_PATH = "src/res/image-09.png";
     public static final String LOW_PATH = "src/res/image-10.png";
     public static final String AND2_PATH = "src/res/image-11.png";
-    public static final String NAND2_PATH = "src/res/image-15.png";
+    public static final String NAND2_PATH = "src/res/image-14.png";
     public static final String OR2_PATH = "src/res/image-12.png";
     public static final String NOR2_PATH = "src/res/image-16.png";
     public static final String NOT2_PATH = "src/res/image-13.png";
-    public static final String XOR2_PATH = "src/res/image-14.png";
+    public static final String XOR2_PATH = "src/res/image-15.png";
     public static final String XNOR2_PATH = "src/res/image-17.png";
     public static final List<String> COMPONENTS2_PATH = new List<String>(IN, OUT, NOT2_PATH, AND2_PATH, NAND2_PATH, OR2_PATH,
             NOR2_PATH, XOR2_PATH, XNOR2_PATH, CUSTOM_PATH);
