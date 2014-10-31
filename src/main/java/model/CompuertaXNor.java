@@ -12,12 +12,7 @@ public class CompuertaXNor extends CompuertaLogica{
         super(id, numEntradas, 1);//x entradas , una salida
     }
 
-    /**
-     * Obtener salida en pin
-     *
-     * @param i numero de la salida de 0 a n-1
-     * @return el valor de verdad de la salida
-     */
+
     @Override
     public boolean getOutput() {
 

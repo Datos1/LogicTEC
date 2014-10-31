@@ -13,12 +13,7 @@ public class CompuertaNor extends CompuertaLogica{
     }
 
 
-    /**
-     * Obtener salida en pin
-     *
-     * @param i numero de la salida de 0 a n-1
-     * @return el valor de verdad de la salida
-     */
+
     @Override
     public boolean getOutput() {
 
