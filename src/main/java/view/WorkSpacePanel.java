@@ -66,7 +66,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
                 Nodo entrada = inpts.get(j);
                 g2d.fillRect(entrada.x, entrada.y, entrada.width, entrada.height);
                 if (entrada.hasInLink())
-                    drawLine(g2d, entrada.x + NODO_SIZE / 2,
+                    drawLine(g2d, entrada.getColor(), entrada.x + NODO_SIZE / 2,
                             entrada.y + NODO_SIZE / 2,
                             entrada.getInLink().x + NODO_SIZE / 2,
                             entrada.getInLink().y + NODO_SIZE / 2);
@@ -100,7 +100,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
     /**
      * Draws a nice line
      */
-    private void drawLine(Graphics2D g2d, int x1, int y1, int x2, int y2) {
+    private void drawLine(Graphics2D g2d, Color color, int x1, int y1, int x2, int y2) {
         if (x1 > x2)//swap elements
         {
             int xTemp = x1;
@@ -113,7 +113,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
         }
         int distance = x2 - x1;
         int inter = distance * 1 / 2;
-        g2d.setColor(Color.black);
+        g2d.setColor(color);
         g2d.setStroke(new BasicStroke(3, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         g2d.drawLine(x1, y1, x1 + inter, y1);
         g2d.drawLine(x1 + inter, y1, x1 + inter, y2);
@@ -128,7 +128,7 @@ public class WorkSpacePanel extends JPanel implements Commons, MouseListener, Mo
     private void paintDraggedLine(Graphics2D g2d) {
         if (draggedNodo != null) {
 
-            drawLine(g2d, startPoint.x, startPoint.y, lastPoint.x, lastPoint.y);
+            drawLine(g2d, Color.BLACK, startPoint.x, startPoint.y, lastPoint.x, lastPoint.y);
         }
     }
     private void deleteComponent(int id) {

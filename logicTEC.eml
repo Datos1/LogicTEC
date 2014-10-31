@@ -5,7 +5,10 @@
 		<excludeFolder url="file://$MODULE_DIR$/target"/>
 	</contentEntry>
 	<levels>
+<<<<<<< Updated upstream
 		<level name="Maven: org.json:json:20090211" value="project"/>
+=======
+>>>>>>> Stashed changes
 		<level name="json-simple-1.1.1" value="project"/>
 		<level name="Maven: com.googlecode.json-simple:json-simple:1.1.1" value="project"/>
 		<level name="Maven: junit:junit:4.10" value="project"/>

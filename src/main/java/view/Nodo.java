@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * Created by pablo on 25/10/14.
@@ -9,11 +10,15 @@ public class Nodo extends Rectangle {
     private Componente parent;
     private Nodo inLink;
     private int id;
+    private Color color;
 
     public Nodo(Rectangle rect, int pId, Componente pParent) {
         id = pId;
         this.setRect(rect);
         parent = pParent;
+        Random rand = new Random();
+        color = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+
     }
 
     public Componente getParent() {
@@ -44,5 +49,9 @@ public class Nodo extends Rectangle {
 
     public int getId() {
         return id;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }
